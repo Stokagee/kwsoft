@@ -1,3 +1,0 @@
---variable BROWSER:chromium
---variable BROWSER:firefox
---variable BROWSER:webkit
