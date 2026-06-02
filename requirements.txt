@@ -1,5 +1,6 @@
-robotframework==7.0.1
-robotframework-browser==18.3.0
+robotframework==7.3.2
+robotframework-browser==18.8.1
 robotframework-pabot==2.18.0
 python-dotenv==1.0.1
 # Dont forgot for rf browser to install the browsers with "rfbrowser init" command after installing the requirements
+robotframework-faker>=6.0.0
