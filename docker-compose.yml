@@ -8,6 +8,7 @@ services:
       - ./resources:/opt/robotframework/resources
       - ./config:/opt/robotframework/config
       - ./results:/opt/robotframework/results
+      - ./.env:/opt/robotframework/.env
     env_file:
       - .env
     command: pabot --outputdir /opt/robotframework/results /opt/robotframework/tests
