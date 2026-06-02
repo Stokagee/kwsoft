@@ -1,0 +1,13 @@
+services:
+  robot-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./tests:/opt/robotframework/tests
+      - ./resources:/opt/robotframework/resources
+      - ./config:/opt/robotframework/config
+      - ./results:/opt/robotframework/results
+    env_file:
+      - .env
+    command: pabot --outputdir /opt/robotframework/results /opt/robotframework/tests
