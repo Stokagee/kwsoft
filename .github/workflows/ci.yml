@@ -1,0 +1,46 @@
+name: Robot Framework CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Stáhne kód z GitHubu do virtuálního stroje
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Nastaví pokročilý buildovací nástroj pro Docker (nutný pro cache)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 3. Vytvoří dočasný .env soubor pro potřeby pipeline
+      - name: Create .env file for CI
+        run: |
+          echo "BASE_URL=https://example.com" >> .env
+          echo "EXPECTED_TITLE=Example Domain" >> .env
+
+      # 4. Sestaví Docker image s využitím GitHub Actions Cache
+      # Při prvním spuštění se image uloží do cache, při dalším se z ní bleskově vytáhne
+      - name: Build Docker image with cache
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          tags: kwsoft-robot-tests:latest
+          load: true # Načte sestavený image do lokálního Docker démona v pipeline
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # 5. Spustí testy pomocí Docker Compose (bez příznaku --build, protože image už máme z cache)
+      # --exit-code-from zajistí, že pokud testy selžou, celá pipeline zčervená
+      - name: Run tests via Docker Compose
+        run: |
+          mkdir -p results
+          chmod -R 777 results
+          docker compose up --exit-code-from robot-tests

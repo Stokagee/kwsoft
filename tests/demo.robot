@@ -1,9 +1,11 @@
 *** Settings ***
-Library    Browser
+Documentation    Tento test ověřuje, že Docker kontejner běží správně a Browser library funguje.
+
+Resource    ../resources/common.resource
+
+Test Teardown    Close Browser
 
 *** Test Cases ***
 Verify Docker Container Environment
-    New Browser    browser=chromium    headless=True
-    New Page       about:blank
-    Log            Docker funguje a Browser library léta!
-    Close Browser
+    Initialize Browser Session    
+    Log Action    Docker works, and the Browser library has been around for ages!
