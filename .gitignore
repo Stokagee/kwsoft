@@ -1,1 +1,15 @@
 venv/
+.venv/
+__pycache__/
+*.pyc
+
+log.html
+report.html
+output.xml
+pabot_results/
+browser/
+
+.vscode/
+.idea/
+
+.env
