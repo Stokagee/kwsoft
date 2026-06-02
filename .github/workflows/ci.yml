@@ -39,8 +39,8 @@ jobs:
 
       # 5. Spustí testy pomocí Docker Compose (bez příznaku --build, protože image už máme z cache)
       # --exit-code-from zajistí, že pokud testy selžou, celá pipeline zčervená
-      - name: Run tests via Docker Compose
-        run: |
-          mkdir -p results
-          chmod -R 777 results
-          docker compose up --exit-code-from robot-tests
+      - name: Run Robot Framework Tests via Docker
+        env:
+          HEADLESS: "true"
+          BASE_URL: "https://example.com"
+        run: docker compose up
