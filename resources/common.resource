@@ -24,8 +24,9 @@ Wait Element Ready
 
 Initialize Browser Session
     [Documentation]    Opens a new browser window and navigates to the specified URL.
+    ${target_browser}=    Get Variable Value    ${BROWSER}    chromium
     TRY
-        New Browser    headless=${HEADLESS}   browser=chromium
+        New Browser    headless=${HEADLESS}   browser=${target_browser}
         New Context
         New Page    url=${BASE_URL}    wait_until=networkidle    
         Set Viewport Size    width=1280    height=800

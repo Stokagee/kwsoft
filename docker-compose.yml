@@ -9,6 +9,10 @@ services:
       - ./config:/opt/robotframework/config
       - ./results:/opt/robotframework/results
       - ./.env:/opt/robotframework/.env
+      # Namontování jednotlivých konfigurací prohlížečů
+      - ./pabot-chromium.txt:/opt/robotframework/pabot-chromium.txt
+      - ./pabot-firefox.txt:/opt/robotframework/pabot-firefox.txt
+      - ./pabot-webkit.txt:/opt/robotframework/pabot-webkit.txt
     env_file:
       - .env
-    command: pabot --outputdir /opt/robotframework/results /opt/robotframework/tests
+    command: pabot --processes 3 --argumentfile1 /opt/robotframework/pabot-chromium.txt --argumentfile2 /opt/robotframework/pabot-firefox.txt --argumentfile3 /opt/robotframework/pabot-webkit.txt --outputdir /opt/robotframework/results /opt/robotframework/tests
