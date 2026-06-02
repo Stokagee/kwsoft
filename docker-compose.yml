@@ -8,7 +8,36 @@ services:
       - ./resources:/opt/robotframework/resources
       - ./config:/opt/robotframework/config
       - ./results:/opt/robotframework/results
-      - ./.env:/opt/robotframework/.env
-    env_file:
-      - .env
-    command: pabot --outputdir /opt/robotframework/results /opt/robotframework/tests
+      - ./pabot-chromium.txt:/opt/robotframework/pabot-chromium.txt
+      - ./pabot-firefox.txt:/opt/robotframework/pabot-firefox.txt
+      - ./pabot-webkit.txt:/opt/robotframework/pabot-webkit.txt
+    environment:
+      BASE_URL: ${BASE_URL:-https://example.com}
+      EXPECTED_TITLE: ${EXPECTED_TITLE:-Example Domain}
+      TIMEOUT: ${TIMEOUT:-10s}
+      HEADLESS: ${HEADLESS:-true}
+      LOG_TO_CONSOLE: ${LOG_TO_CONSOLE:-true}
+    # Použití striktního pole zajistí správné předání mezer i pořadí parametrů
+    command:
+      - "pabot"
+      - "--processes"
+      - "3"
+      - "--argumentfile1"
+      - "/opt/robotframework/pabot-chromium.txt"
+      - "--argumentfile2"
+      - "/opt/robotframework/pabot-firefox.txt"
+      - "--argumentfile3"
+      - "/opt/robotframework/pabot-webkit.txt"
+      - "--variable"
+      - "BASE_URL:${BASE_URL:-https://example.com}"
+      - "--variable"
+      - "EXPECTED_TITLE:${EXPECTED_TITLE:-Example Domain}"
+      - "--variable"
+      - "TIMEOUT:${TIMEOUT:-10s}"
+      - "--variable"
+      - "HEADLESS:${HEADLESS:-true}"
+      - "--variable"
+      - "LOG_TO_CONSOLE:${LOG_TO_CONSOLE:-true}"
+      - "--outputdir"
+      - "/opt/robotframework/results"
+      - "/opt/robotframework/tests"
