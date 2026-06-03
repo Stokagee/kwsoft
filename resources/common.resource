@@ -6,6 +6,9 @@ Library    Browser
 Library    FakerLibrary    locale=de_DE
 Library    Collections
 
+Resource    pages/login_page.resource
+Resource    pages/dashboard_page.resource
+
 Variables    ../config/env_loader.py
 
 *** Keywords ***
@@ -30,7 +33,7 @@ Initialize Browser Session
         New Context
         ...    viewport={"width": 1280, "height": 720}
         ...    tracing=${OUTPUT_DIR}/tracing_${target_browser}.zip
-        ...    recordVideo={'dir': '${OUTPUT_DIR}/videos', 'size': {'width': 1280, 'height': 720}}
+        ...    recordVideo={'dir': '${OUTPUT_DIR}\videos', 'size': {'width': 1280, 'height': 720}}
         Set Browser Timeout    ${TIMEOUT}
         New Page    url=${BASE_URL}    wait_until=networkidle
     EXCEPT    AS    ${err}

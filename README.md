@@ -1,8 +1,34 @@
+📁 rf-browser-automation/
+├── 📁 .github/
+│ └── 📁 workflows/
+│ └── ci.yml 
+├── 📁 config/
+| └── 📁 environments
+|   └── dev.yml
+│ └── env_loader.py 
+├── 📁 resources/
+| ├─  📁 locators/
+│ ├── 📁 pages/ 
+│ └── common.resource 
+├── 📁 tests/
+│ ├── 📁 positive/ # Positive scenarios
+│ └── 📁 negative/ # Worst-case scenarios
+├── .gitignore
+├── docker-compose.yml
+├── Dockerfile
+├── .env.example
+├── pabot-webkit.txt
+├── pabot-chromium.txt
+├── pabot-firefox.txt
+├── requirements.txt
+└── README.md
+
 # Demo pro kwsoft
 
 ## Tento repo slouží pro ukázku RF testů a jeho reportování pomocí Allure.
 - Testuje se pouze UI
 - Hlavní hnací motor je Browser library založený na Playwrightu, ale je možné přidat i jiné knihovny jako je, DataBase, Appium, REST, SOAP, Sikuli, popřípadě vytvořit vlastní knihovny v Py a propojit je pro lepší čitelnost, pro netechnické lidi.
+- Zvolen YAML config soubor pro lepší přehlednost a snadnou editaci + možnost mít komentáře, ale je možné použít i jiné formáty jako JSON, INI, XML, popřípadě načítat proměnné přímo z prostředí.
 
 ## Jak spustit testy
 

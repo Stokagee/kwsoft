@@ -19,3 +19,4 @@ gh-pages/
 
 .env
 results/
+playwright-log.txt

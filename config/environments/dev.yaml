@@ -1,0 +1,3 @@
+# Dev prostředí
+BASE_URL: https://example.com
+TIMEOUT: 10s

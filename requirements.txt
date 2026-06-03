@@ -2,7 +2,7 @@ robotframework==7.3.2
 robotframework-browser==18.8.1
 robotframework-pabot==2.18.0
 python-dotenv==1.0.1
-# Dont forgot for rf browser to install the browsers with "rfbrowser init" command after installing the requirements
+# Dont forgot for rf browser to install the browsers with "rfbrowser init" command after installing the requirements. Only for manual installation. With docker is autoamtic.
 robotframework-faker>=6.0.0
-# Allure 2 listener – generuje allure-results/ JSON pro Allure report (NE Allure 3)
 allure-robotframework==2.16.0
+pyyaml
