@@ -30,10 +30,12 @@ Initialize Browser Session
     ${target_browser}=    Get Variable Value    ${BROWSER}    chromium
     TRY
         New Browser    headless=${HEADLESS}   browser=${target_browser}
+        VAR    &{video_size}    width=${1280}    height=${720}
+        VAR    &{record_video}    dir=${OUTPUT_DIR}/videos    size=${video_size}
         New Context
         ...    viewport={"width": 1280, "height": 720}
         ...    tracing=${OUTPUT_DIR}/tracing_${target_browser}.zip
-        ...    recordVideo={'dir': '${OUTPUT_DIR}\videos', 'size': {'width': 1280, 'height': 720}}
+        ...    recordVideo=${record_video}
         Set Browser Timeout    ${TIMEOUT}
         New Page    url=${BASE_URL}    wait_until=networkidle
     EXCEPT    AS    ${err}

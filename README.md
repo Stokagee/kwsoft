@@ -48,6 +48,12 @@ docker-compose up --build
 
 ### Spuštění testů bez Dockeru
 - Ujistěte se, že máte nainstalovaný Python 3.8+ a všechny závislosti uvedené v `requirements.txt`.
+- Vytvořte virtuální prostředí a aktivujte ho:
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\Activate.ps1  # Windows
+```
 - Spusťte následující příkaz pro instalaci závislostí:
 ```bash
 pip install -r requirements.txt
@@ -66,7 +72,28 @@ robot --argumentfile args/staging.txt tests/
 
 robot --argumentfile args/prod.txt tests/
 ```
+- Pro spuštění testů paralelně přes Pabot na 3 prohlížečích (Chromium / Firefox / Webkit) použijte následující příkaz:
+```bash
+pabot `
+  --argumentfile1 pabot-chromium.txt `
+  --argumentfile2 pabot-firefox.txt `
+  --argumentfile3 pabot-webkit.txt `
+  --variablefile config/env_loader.py:dev `
+  --outputdir results `
+  tests/
+```
+- PowerShell script pro spuštění paralelně na 3 prohlížečích s možností přepínat prostředí přes argument:
+```bash
+param([string]$env = "dev")
 
+pabot `
+  --argumentfile1 pabot-chromium.txt `
+  --argumentfile2 pabot-firefox.txt `
+  --argumentfile3 pabot-webkit.txt `
+  --variablefile config/env_loader.py:$env `
+  --outputdir results `
+  tests/
+```
 ## Reportování (Allure)
 
 Výsledky testů se reportují přes **Allure**. Testy běží paralelně přes Pabot na 3 prohlížečích (Chromium / Firefox / Webkit) a každý prohlížeč má v reportu vlastní suite i vlastní trend, takže u selhání je vidět, na kterém prohlížeči test spadl.
