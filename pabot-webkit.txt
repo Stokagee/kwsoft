@@ -1,1 +1,3 @@
 --variable BROWSER:webkit
+--name Webkit
+--settag browser:webkit

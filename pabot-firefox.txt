@@ -1,1 +1,3 @@
 --variable BROWSER:firefox
+--name Firefox
+--settag browser:firefox
