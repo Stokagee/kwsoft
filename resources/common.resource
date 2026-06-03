@@ -28,16 +28,25 @@ Initialize Browser Session
     TRY
         New Browser    headless=${HEADLESS}   browser=${target_browser}
         New Context
-        New Page    url=${BASE_URL}    wait_until=networkidle    
-        Set Viewport Size    width=1280    height=800
+        ...    viewport={"width": 1280, "height": 720}
+        ...    tracing=${OUTPUT_DIR}/tracing_${target_browser}.zip
+        ...    recordVideo={'dir': '${OUTPUT_DIR}/videos', 'size': {'width': 1280, 'height': 720}}
+        Set Browser Timeout    ${TIMEOUT}
+        New Page    url=${BASE_URL}    wait_until=networkidle
     EXCEPT    AS    ${err}
-        VAR    ${msg}    Failed to initialize browser session --> | URL='${BASE_URL}' | ERROR: ${err}
+        VAR    ${msg}    Failed to initialize browser session --> | URL='${BASE_URL}' | BROWSER='${target_browser}' | HEADLESS='${HEADLESS}' | TIMEOUT='${TIMEOUT}' | ERROR: ${err}
         Fail    ${msg}
     END
 
 Close Browser Session
-    [Documentation]    Closes the current browser window.
-    Close Browser
+    [Documentation]    Closes the browser context and browser, finalizing video and tracing.
+    TRY
+        Close Context
+        Close Browser
+    EXCEPT    AS    ${err}
+        VAR    ${msg}    Failed to close browser session --> | ERROR: ${err}
+        Fail    ${msg}
+    END
 
 Click Element
     [Documentation]    Clicks on an element using the specified selector with optional context name for better error messages
@@ -56,7 +65,6 @@ Fill Field
     TRY
         Wait Element Ready    ${locator}
         Click Element    ${locator}
-        #Clear Text    ${locator}
         Fill Text    ${locator}    ${text}
     EXCEPT    AS    ${err}
         VAR    ${msg}    Failed to fill field, '${context_name}' --> | locator='${locator}' | ERROR: ${err}

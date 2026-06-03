@@ -3,9 +3,9 @@ Documentation    Tento test ověřuje, že Docker kontejner běží správně a 
 
 Resource    ../resources/common.resource
 
-Test Teardown    Close Browser
 
 *** Test Cases ***
 Verify Docker Container Environment
-    Initialize Browser Session    
+    [Setup]    Initialize Browser Session    
     Log Action    Docker works, and the Browser library has been around for ages!
+    [Teardown]    Close Browser Session
