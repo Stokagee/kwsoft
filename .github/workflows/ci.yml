@@ -49,7 +49,7 @@ jobs:
           HEADLESS: "true"
           BASE_URL: "https://example.com"
           EXPECTED_TITLE: "TohleSchvalneSely"
-        run: docker compose up
+        run: docker compose up --exit-code-from robot-tests
 
       - name: Upload Test Results and Artifacts
         if: always()
