@@ -8,7 +8,8 @@
 │ └── env_loader.py 
 ├── 📁 resources/
 | ├─  📁 locators/
-│ ├── 📁 pages/ 
+│ ├── 📁 pages/
+│ ├── 📁 workflows/  
 │ └── common.resource 
 ├── 📁 tests/
 │ ├── 📁 positive/ # Positive scenarios

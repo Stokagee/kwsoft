@@ -6,9 +6,6 @@ Library    Browser
 Library    FakerLibrary    locale=de_DE
 Library    Collections
 
-Resource    pages/login_page.resource
-Resource    pages/dashboard_page.resource
-
 Variables    ../config/env_loader.py
 
 *** Keywords ***
