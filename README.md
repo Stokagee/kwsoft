@@ -31,29 +31,17 @@ rfbrowser init
 robot --outputdir results tests/
 ```
 
-## Allure report (historie + trendy)
+## Reportování (Allure)
 
-Po každém běhu v CI se ze složky `allure-results/` (syrový JSON z listeneru) vygeneruje HTML Allure report a publikuje na **GitHub Pages** – včetně historie a trendů napříč běhy.
+Výsledky testů se reportují přes **Allure**. Testy běží paralelně přes Pabot na 3 prohlížečích (Chromium / Firefox / Webkit) a každý prohlížeč má v reportu vlastní suite i vlastní trend, takže u selhání je vidět, na kterém prohlížeči test spadl.
 
-- **URL reportu:** https://stokagee.github.io/kwsoft/
-- Report se publikuje z větve `gh-pages`, kterou workflow vytvoří/aktualizuje automaticky.
-- Testy běží paralelně přes Pabot na 3 prohlížečích (Chromium / Firefox / Webkit). Každý prohlížeč má díky `--name` v reportu **vlastní suite i vlastní trend**, takže u selhání je hned vidět, kde to spadlo (navíc je u testů štítek `browser:<jméno>`).
-
-### Jednorázové zapnutí GitHub Pages
-Po úplně **prvním** běhu, který vytvoří větev `gh-pages`, je potřeba Pages jednou ručně zapnout:
-
-> Settings → Pages → Build and deployment → Source: **Deploy from a branch** → Branch: `gh-pages` / `/ (root)` → Save
-
-Od dalšího běhu se report aktualizuje sám.
-
-### Vygenerování reportu lokálně (volitelné)
-Pokud chceš report otevřít i mimo CI, stačí Allure CLI (vyžaduje Javu – proto v Docker image **není**, generování v CI dělá samostatná GitHub Action):
+- Po každém běhu v CI se report automaticky publikuje na GitHub Pages včetně historie a trendů napříč běhy: **https://stokagee.github.io/kwsoft/**
+- Syrové výsledky (JSON) najdeš ve složce `allure-results/`. Report z nich lze vygenerovat i lokálně přes Allure CLI:
 ```bash
 allure serve allure-results
 ```
 
 ## CI / artefakty
-- Pipeline `.github/workflows/ci.yml` běží na `push` i `pull_request` do větve `main`: sestaví Docker image (s GHA cache), spustí testy a publikuje Allure report.
-- Pád testu korektně **zčervená pipeline** (`docker compose up --exit-code-from robot-tests`); report i artefakty se ukládají i tak (kroky s `if: always()`).
-- Vedle Allure reportu se ukládá i ZIP se syrovými výsledky a artefakty (logy, screenshoty, video, trace) jako GitHub Actions artefakt **`robot-framework-results`**.
+- Pipeline `.github/workflows/ci.yml` běží na `push` i `pull_request` do větve `main`: sestaví Docker image, spustí testy paralelně přes Pabot a publikuje Allure report na GitHub Pages.
+- Vedle reportu se ukládá i ZIP se syrovými výsledky a artefakty (logy, screenshoty, video, trace) jako GitHub Actions artefakt `robot-framework-results`.
 
