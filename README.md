@@ -13,6 +13,10 @@
 ├── 📁 tests/
 │ ├── 📁 positive/ # Positive scenarios
 │ └── 📁 negative/ # Worst-case scenarios
+├── 📁 args/
+│ ├── dev.txt
+│ ├── staging.txt
+│ └── prod.txt
 ├── .gitignore
 ├── docker-compose.yml
 ├── Dockerfile
@@ -52,9 +56,15 @@ pip install -r requirements.txt
 ```bash
 rfbrowser init
 ```
-- Po úspěšném nainstalování závislostí spustíte testy tak, že se přesunete do adresáře `tests` a spustíte následující příkaz:
+- Po úspěšném nainstalování závislostí spustíte testy tak, že se přesunete do rootu složky a spustíte následující příkaz:
 ```bash
-robot --outputdir results tests/
+robot --argumentfile args/dev.txt tests/
+```
+- A přepnutí prostředí = jen jiný argument file:
+```bash
+robot --argumentfile args/staging.txt tests/
+
+robot --argumentfile args/prod.txt tests/
 ```
 
 ## Reportování (Allure)
