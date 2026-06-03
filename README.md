@@ -1,8 +1,8 @@
 # Demo pro kwsoft
 
 ## Tento repo slouží pro ukázku RF testů a jeho reportování pomocí Allure.
-- Testuje se pouze UI, ale je možné přidat i API testy.
-- Hlavní hnací motor je Browser library založený na Playwrightu, ale je možné přidat i jiné knihovny jako je, DB, Appium, REST, SOAP, Sikuli, popřípadě vytvořit vlastní knihovny v Py a propojit je pro lepší čitelnost, pro netechnické lidi.
+- Testuje se pouze UI
+- Hlavní hnací motor je Browser library založený na Playwrightu, ale je možné přidat i jiné knihovny jako je, DataBase, Appium, REST, SOAP, Sikuli, popřípadě vytvořit vlastní knihovny v Py a propojit je pro lepší čitelnost, pro netechnické lidi.
 
 ## Jak spustit testy
 
