@@ -56,6 +56,25 @@ jobs:
           BASE_URL: "https://example.com"
         run: docker compose up --exit-code-from robot-tests
 
+      # 5b. Zajistí, že větev gh-pages existuje (jinak peaceiris na prvním běhu spadne
+      # na "src refspec gh-pages does not match any"). Idempotentní, izolovaný temp repo.
+      - name: Ensure gh-pages branch exists
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
+            echo "gh-pages already exists"
+          else
+            echo "creating empty gh-pages branch"
+            tmp="$(mktemp -d)"
+            git -C "$tmp" init -q -b gh-pages
+            git -C "$tmp" -c user.name=ci -c user.email=ci@users.noreply.github.com \
+              commit -q --allow-empty -m "init gh-pages"
+            git -C "$tmp" push -q \
+              "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
+          fi
+
       # 6. Natáhne předchozí historii Allure z větve gh-pages (kvůli trendům).
       # Na první běh větev ještě neexistuje -> continue-on-error.
       - name: Checkout gh-pages (Allure history)
