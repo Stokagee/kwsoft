@@ -1,1 +1,3 @@
 --variable BROWSER:chromium
+--name Chromium
+--settag browser:chromium

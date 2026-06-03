@@ -9,6 +9,11 @@ output.xml
 pabot_results/
 browser/
 
+allure-results/
+allure-report/
+allure-history/
+gh-pages/
+
 .vscode/
 .idea/
 

@@ -8,6 +8,7 @@ services:
       - ./resources:/opt/robotframework/resources
       - ./config:/opt/robotframework/config
       - ./results:/opt/robotframework/results
+      - ./allure-results:/opt/robotframework/allure-results
       - ./pabot-chromium.txt:/opt/robotframework/pabot-chromium.txt
       - ./pabot-firefox.txt:/opt/robotframework/pabot-firefox.txt
       - ./pabot-webkit.txt:/opt/robotframework/pabot-webkit.txt
@@ -38,6 +39,8 @@ services:
       - "HEADLESS:${HEADLESS:-true}"
       - "--variable"
       - "LOG_TO_CONSOLE:${LOG_TO_CONSOLE:-true}"
+      - "--listener"
+      - "allure_robotframework:/opt/robotframework/allure-results"
       - "--outputdir"
       - "/opt/robotframework/results"
       - "/opt/robotframework/tests"

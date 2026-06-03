@@ -3,7 +3,6 @@ Documentation    Tento test ověřuje, že Docker kontejner běží správně a 
 
 Resource    ../resources/common.resource
 
-
 *** Test Cases ***
 Verify Docker Container Environment
     [Setup]    Initialize Browser Session    
