@@ -48,6 +48,7 @@ jobs:
         env:
           HEADLESS: "true"
           BASE_URL: "https://example.com"
+          EXPECTED_TITLE: "TohleSchvalneSely"
         run: docker compose up
 
       - name: Upload Test Results and Artifacts
